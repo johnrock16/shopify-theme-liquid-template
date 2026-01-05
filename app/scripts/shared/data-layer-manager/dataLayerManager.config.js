@@ -1,0 +1,42 @@
+export default {
+  titles: {
+    x: 'close',
+  },
+  types: {
+    icon: 'icon',
+    button: 'button',
+    card: 'card',
+    field: 'field',
+    filter: 'filter',
+    search: 'search',
+    menu: 'menu',
+    checkbox: 'checkbox',
+    footer: 'footer',
+  },
+  tags: {
+    button: 'button',
+    i: 'icon',
+    svg: 'icon',
+    path: 'icon',
+    img: 'card',
+    figure: 'card',
+    footer: 'footer',
+    span: 'inherit',
+  },
+  pages: {
+    products: 'pdp',
+    collections: 'plp',
+    search: 'search',
+    cart: 'cart',
+    home: 'home',
+    pages: 'pages',
+  },
+  pathnames: {
+    pdp: () => `pdp:${window.product.handle}`,
+    plp: () => `plp:${window.location.pathname.substring(1).replace(/\//g, '-')}`,
+    search: () => `search`,
+    home: () => `home`,
+    cart: () => 'cart',
+    pages: () => window.location.pathname.substring(1).replace(/\//g, '-'),
+  },
+};

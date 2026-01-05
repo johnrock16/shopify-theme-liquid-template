@@ -1,0 +1,326 @@
+<form
+  id="section-{{ section.id }}"
+  class="check-rule-mate-form page-width page-width--narrow"
+  data-breakpoint-md="{{ section.settings.form_breakpoint_md }}"
+  data-breakpoint-lg="{{ section.settings.form_breakpoint_lg }}"
+  data-rules-form="{{ section.settings.form_rule.rules | escape }}"
+  data-rules-crmf="{{ section.settings.form_crmf_rules.rules | escape }}"
+  data-errors-messages="{{ section.settings.form_crmf_errors.errors | escape }}"
+>
+  <span class="crmf-title">{{ section.settings.form_title }}</span>
+  <div class="crmf-fields">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'field_group' %}
+          <div class="crmf-field-group">
+            <span>{{ block.settings.field_group_title }}</span>
+          </div>
+        {% when 'field' %}
+          <div class="crmf-field">
+            {% case block.settings.field_type %}
+              {% when 'input' %}
+                <label for="{{ block.settings.field_name }}">
+                  {{ block.settings.field_label }}
+                  {% case block.settings.field_required %}
+                    {% when false %}
+                      <span>(Optional)</span>
+                  {% endcase %}
+                </label>
+                <input
+                  id="crmf-input-{{ block.settings.field_name }}"
+                  name="{{ block.settings.field_name }}"
+                  type="{{ block.settings.field_content_type }}"
+                  placeholder="{{ block.settings.field_placeholder }}"
+                  autocomplete="{{ block.settings.field_name }}"
+                  data-rule="{{ block.settings.field_rule }}"
+                  data-mask="{{ block.settings.field_mask }}"
+                  data-field-width="{{ block.settings.field_width }}"
+                  data-field-width-md="{{ block.settings.field_width_md }}"
+                  data-field-width-lg="{{ block.settings.field_width_lg }}"
+                  {% if block.settings.field_input_mode != 'none' %}
+                    inputmode="{{ block.settings.field_input_mode }}"
+                  {% endif %}
+                  {% if block.settings.field_required %}
+                    required="{{ block.settings.field_required }}"
+                  {% endif %}
+                >
+              {% when 'textarea' %}
+                <label for="{{ block.settings.field_name }}">
+                  {{ block.settings.field_label }}
+                  {% case block.settings.field_required %}
+                    {% when false %}
+                      <span>(Optional)</span>
+                  {% endcase %}
+                </label>
+                <textarea
+                  id="crmf-textarea-{{ block.settings.field_name }}"
+                  name="{{ block.settings.field_name }}"
+                  type="{{ block.settings.field_content_type }}"
+                  placeholder="{{ block.settings.field_placeholder }}"
+                  autocomplete="{{ block.settings.field_name }}"
+                  data-rule="{{ block.settings.field_rule }}"
+                  data-field-width="{{ block.settings.field_width }}"
+                  data-field-width-md="{{ block.settings.field_width_md }}"
+                  data-field-width-lg="{{ block.settings.field_width_lg }}"
+                  {% if block.settings.field_input_mode != 'none' %}
+                    inputmode="{{ block.settings.field_input_mode }}"
+                  {% endif %}
+                  {% if block.settings.field_required %}
+                    required="{{ block.settings.field_required }}"
+                  {% endif %}
+                ></textarea>
+              {% when 'select' %}
+                <label for="{{ block.settings.field_name }}">
+                  {{ block.settings.field_label }}
+                  {% case block.settings.field_required %}
+                    {% when false %}
+                      <span>(Optional)</span>
+                  {% endcase %}
+                </label>
+                <select
+                  id="crmf-select-{{ block.settings.field_name }}"
+                  name="{{ block.settings.field_name }}"
+                  data-rule="{{ block.settings.field_rule }}"
+                  data-field-width="{{ block.settings.field_width }}"
+                  data-field-width-md="{{ block.settings.field_width_md }}"
+                  data-field-width-lg="{{ block.settings.field_width_lg }}"
+                  {% if block.settings.field_required %}
+                    required="{{ block.settings.field_required }}"
+                  {% endif %}
+                >
+                  {% assign select_options_string = block.settings.field_select_options %}
+                  {% assign select_options_key_value_pairs = select_options_string
+                    | remove: '{"'
+                    | remove: '}'
+                    | remove: '"'
+                    | split: ','
+                  %}
+                  {% for pair in select_options_key_value_pairs %}
+                    {% assign select_option_key_value = pair | split: ':' %}
+                    {% assign select_option_key = select_option_key_value[0] %}
+                    {% assign select_option_value = select_option_key_value[1] %}
+                    {% if select_option_key == 'default' %}
+                      <option value="">{{ select_option_value }}</option>
+                    {% else %}
+                      <option value="{{ select_option_key }}">{{ select_option_value }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+            {% endcase %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+  <button class="crmf-button-submit" type="submit">{{ section.settings.form_button_submit_label }}</button>
+</form>
+
+{% schema %}
+{
+  "name": "check-rule-mate-form",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "check-rule-mate-form"
+    }
+  ],
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "form_crmf_rules",
+      "label": "Check-rule-mate-form rules",
+      "metaobject_type": "check_rule_mate_form_rules"
+    },
+    {
+      "type": "metaobject",
+      "id": "form_crmf_errors",
+      "label": "Check-rule-mate-form errors",
+      "metaobject_type": "check_rule_mate_form_errors"
+    },
+    {
+      "type": "metaobject",
+      "id": "form_rule",
+      "label": "Form rule",
+      "metaobject_type": "form_rules"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form title"
+    },
+    {
+      "type": "text",
+      "id": "Form_subtitle",
+      "label": "Form subtittle"
+    },
+    {
+      "type": "text",
+      "id": "form_button_submit_label",
+      "label": "Form submit button text",
+      "default": "Submit"
+    },
+    {
+      "type": "number",
+      "id": "form_breakpoint_md",
+      "label": "Form Breakpoint for tablets (px)"
+    },
+    {
+      "type": "number",
+      "id": "form_breakpoint_lg",
+      "label": "Form Breakpoint for desktops (px)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "field",
+      "name": "Form field",
+      "settings": [
+        {
+          "type": "select",
+          "id": "field_type",
+          "label": "Field type",
+          "default": "input",
+          "options": [
+            { "value": "input", "label": "input" },
+            { "value": "select", "label": "select" },
+            { "value": "textarea", "label": "textarea" },
+            { "value": "checkbox", "label": "checkbox" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "field_required",
+          "label": "Required field?"
+        },
+        {
+          "type": "text",
+          "id": "field_label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field name"
+        },
+        {
+          "type": "text",
+          "id": "field_placeholder",
+          "label": "Placeholder"
+        },
+        {
+          "type": "select",
+          "id": "field_content_type",
+          "label": "Field content type",
+          "default": "text",
+          "options": [
+            { "value": "text", "label": "text" },
+            { "value": "checkbox", "label": "checkbox" },
+            { "value": "color", "label": "color" },
+            { "value": "date", "label": "date" },
+            { "value": "datetime-local", "label": "datetime-local" },
+            { "value": "email", "label": "email" },
+            { "value": "file", "label": "file" },
+            { "value": "hidden", "label": "hidden" },
+            { "value": "image", "label": "image" },
+            { "value": "month", "label": "month" },
+            { "value": "number", "label": "number" },
+            { "value": "password", "label": "password" },
+            { "value": "radio", "label": "radio" },
+            { "value": "range", "label": "range" },
+            { "value": "search", "label": "search" },
+            { "value": "submit", "label": "submit" },
+            { "value": "tel", "label": "tel" },
+            { "value": "time", "label": "time" },
+            { "value": "url", "label": "url" },
+            { "value": "week", "label": "week" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "field_rule",
+          "label": "Field validation ruie",
+          "default": "hasText"
+        },
+        {
+          "type": "text",
+          "id": "field_customer",
+          "label": "Auto fill with customer data"
+        },
+        {
+          "type": "text",
+          "id": "field_mask",
+          "label": "Field mask"
+        },
+        {
+          "type": "select",
+          "id": "field_input_mode",
+          "label": "Field input mode",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "none" },
+            { "value": "text", "label": "text" },
+            { "value": "decimal", "label": "decimal" },
+            { "value": "numeric", "label": "numeric" },
+            { "value": "tel", "label": "tel" },
+            { "value": "search", "label": "search" },
+            { "value": "email", "label": "email" },
+            { "value": "url", "label": "url" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "field_width",
+          "label": "Field width",
+          "default": "100%"
+        },
+        {
+          "type": "text",
+          "id": "field_width_md",
+          "label": "Field width (Tablet)",
+          "default": "100%"
+        },
+        {
+          "type": "text",
+          "id": "field_width_lg",
+          "label": "Field width (Desktop)",
+          "default": "100%"
+        },
+        {
+          "type": "text",
+          "id": "field_checkbox_label",
+          "label": "Checkbox label (only checkboxes)"
+        },
+        {
+          "type": "text",
+          "id": "field_select_default_option",
+          "label": "The default option for select fields (only select fields)"
+        },
+        {
+          "type": "textarea",
+          "id": "field_select_options",
+          "label": "Selectbox options"
+        }
+      ]
+    },
+    {
+      "type": "field_group",
+      "name": "Field group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_group_title",
+          "label": "title"
+        },
+        {
+          "type": "checkbox",
+          "id": "field_group_margin",
+          "label": "field group with margin?"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

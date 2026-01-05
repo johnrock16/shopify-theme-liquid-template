@@ -1,0 +1,35 @@
+.check-rule-mate-form {
+    @apply w-full px-4 mx-auto;
+}
+
+.crmf-title {
+    @apply text-xxl;
+}
+
+.crmf-fields {
+    @apply flex flex-row flex-wrap max-w-full gap-4;
+}
+
+.crmf-field {
+    @apply relative flex flex-col w-full gap-1;
+}
+
+.crmf-field input {
+    @apply min-h-[48px] p-2 border border-solid border-black;
+}
+
+.crmf-field select {
+    @apply min-h-[48px] p-2 border border-solid border-black;
+}
+
+.crmf-field textarea {
+    @apply min-h-[120px] p-2 border border-solid border-black;
+}
+
+.crmf-field-group {
+    @apply flex w-full;
+}
+
+.crmf-button-submit {
+    @apply min-w-[120px] min-h-[48px] mt-6 py-1 px-4 text-sm text-secondary font-medium bg-primary cursor-pointer;
+}

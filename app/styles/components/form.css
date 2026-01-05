@@ -1,0 +1,3 @@
+.check-rule-mate-error {
+  @apply absolute top-full text-xs text-red-600;
+}

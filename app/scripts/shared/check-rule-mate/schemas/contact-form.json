@@ -1,0 +1,24 @@
+{
+  "contact[Name]": {
+    "rule": "name",
+    "required": true
+  },
+  "contact[Comment]": {
+    "rule": "hasText",
+    "required": true
+  },
+  "contact[Phone number]": {
+    "rule": "phone",
+    "required": false,
+    "attributesHTML": {
+      "type": "tel"
+    }
+  },
+  "contact[email]": {
+    "rule": "email",
+    "required": true,
+    "attributesHTML": {
+      "type": "email"
+    }
+  }
+}

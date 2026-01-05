@@ -1,0 +1,17 @@
+@layer components {
+  .text-head-sm {
+    @apply text-primary text-xl leading-tight tracking-normal font-semibold align-middle;
+  }
+
+  .text-head-md {
+    @apply text-primary text-4xl leading-tight tracking-normal font-normal align-middle;
+  }
+
+  .text-head-lg {
+    @apply text-primary text-6xl leading-tight tracking-normal font-bold align-middle;
+  }
+
+  .text-body-md {
+    @apply text-primary text-md leading-normal tracking-normal font-normal align-middle;
+  }
+}

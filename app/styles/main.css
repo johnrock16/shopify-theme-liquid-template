@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* source */
+@import "./source/styleguide.css";
+@import "./source/typography.css";
+
+/* components */
+@import "./components/form.css";
+
+/* sections */
+@import "./sections/check-rule-mate-form-liquid.css";
+
+@layer base {
+  body {
+    font-family: var(--font-family), sans-serif !important;
+    font-size: 10px !important;
+  }
+}
+
+@layer utilities {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

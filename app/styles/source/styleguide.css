@@ -1,0 +1,75 @@
+@reference "tailwindcss";
+
+@theme {
+  /* Breakpoints*/
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+
+  /* Container */
+  --container-sm: 540px;
+  --container-md: 720px;
+  --container-lg: 960px;
+  --container-xl: 1140px;
+  --container-xxl: 1320px;
+
+  /* Spacing */
+  --spacing: 4px;
+
+  /* Font Family */
+  --font-family: sans-serif;
+
+  /* Font Sizes */
+  --text-xxs: 1.0rem; /* 10px */
+  --text-xs: 1.2rem;  /* 12px */
+  --text-sm: 1.4rem;  /* 14px */
+  --text-md: 1.6rem;  /* 16px */
+  --text-lg: 1.8rem;  /* 19px */
+  --text-xl: 2.0rem;  /* 20px */
+  --text-xxl: 2.4rem; /* 24px */
+  --text-3xl: 2.8rem; /* 28px */
+  --text-4xl: 3.2rem; /* 32px */
+  --text-5xl: 3.6rem; /* 36px */
+  --text-6xl: 4.0rem; /* 40px */
+  --text-7xl: 4.8rem; /* 48px */
+
+  /* Font Weights */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Line height */
+  --leading-none: 100%;
+  --leading-tight: 120%;
+  --leading-snug: 130%;
+  --leading-normal: 150%;
+  --leading-relaxed: 180%;
+  --leading-loose: 200%;
+
+  /* letter spacing */
+  --tracking-tight: -0.02rem;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04rem;
+  --tracking-wider: 0.05rem;
+
+  /* border radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* Colors */
+  --color-primary: #000000;
+  --color-secondary: #FFFFFF;
+
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+}

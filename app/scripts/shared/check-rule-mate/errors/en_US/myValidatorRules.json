@@ -1,0 +1,23 @@
+{
+    "common": {
+        "hasText": "Please, fill the field",
+        "dateFormat": "Please, fill the field with a valid date"
+    },
+    "email": {
+        "regex": "Please, fill the field with a valid e-mail",
+        "equals": "The email and email confirm are not equals"
+    },
+    "phone": {
+        "regex": "Please, fill the field with a valid phone"
+    },
+    "date": {
+        "validDate": "Please, fill the field with a existent date",
+        "validateAge": "Invalid age, under 18"
+    },
+    "cpf": {
+        "cpf": "Plase, fill the field with a valid CPF"
+    },
+    "name": {
+        "nameSpecialValidation": "Please, fill the field following fields: name, email and cellphone"
+    }
+}

@@ -1,0 +1,102 @@
+{
+  "view_item": {
+    "event": "view_item",
+    "event_type": "event_ecomm_recommended",
+    "ecommerce": {
+      "currency": "usd",
+      "value": {
+        "required": true,
+        "type": "number"
+      },
+      "items": [
+        {
+          "item_id": {
+            "type": "number",
+            "required": true
+          },
+          "item_name": "",
+          "item_variant": "",
+          "item_vendor": "",
+          "price": {
+            "required": true,
+            "type": "number"
+          }
+        }
+      ]
+    },
+    "docs": {
+      "description": "An event triggered whenever the product is viewed.",
+      "structureExpected": {
+        "event": "view_item",
+        "event_type": "event_ecomm_recommended",
+        "ecommerce": {
+          "currency": "usd",
+          "value": 19.47,
+          "items": [
+            {
+              "item_id": 3405127896,
+              "item_name": "cool-hat",
+              "item_variant": "black-white",
+              "item_vendor": "hat-company",
+              "price": 19.47
+            }
+          ]
+        }
+      }
+    }
+  },
+  "view_items": {
+    "event": "view_items",
+    "event_type": "event_ecomm_recommended",
+    "custom_title": "",
+    "ecommerce": {
+      "currency": "usd",
+      "value": {
+        "required": true,
+        "type": "number"
+      },
+      "items": [
+        {
+          "item_id": {
+            "type": "number",
+            "required": true
+          },
+          "item_name": "",
+          "item_variant": "",
+          "item_vendor": "",
+          "price": {
+            "required": true,
+            "type": "number"
+          }
+        }
+      ]
+    },
+    "docs": {
+      "description": "An event triggered whenever a collection is viewed.",
+      "structureExpected": {
+        "event": "view_item",
+        "event_type": "event_ecomm_recommended",
+        "ecommerce": {
+          "currency": "usd",
+          "value": 39.46,
+          "items": [
+            {
+              "item_id": 3405127896,
+              "item_name": "cool-hat",
+              "item_variant": "black-white",
+              "item_vendor": "hat-company",
+              "price": 19.47
+            },
+            {
+              "item_id": 4876543419,
+              "item_name": "cool-shirt",
+              "item_variant": "gray",
+              "item_vendor": "shirt-company",
+              "price": 19.99
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "view_cart": {
+    "event": "view_cart",
+    "event_type": "event_ecomm_recommended",
+    "ecommerce": {
+      "currency": "usd",
+      "value": {
+        "required": true,
+        "type": "number"
+      },
+      "items": [
+        {
+          "item_id": {
+            "required": true,
+            "type": "number"
+          },
+          "item_name": "",
+          "item_variant": "",
+          "item_vendor": "",
+          "price": {
+            "required": true,
+            "type": "number"
+          },
+          "quantity": {
+            "required": true,
+            "type": "number"
+          }
+        }
+      ]
+    },
+    "docs": {
+      "description": "An event triggered whenever the cart is viewed.",
+      "structureExpected": {
+        "event": "view_cart",
+        "event_type": "event_ecomm_recommended",
+        "ecommerce": {
+          "currency": "usd",
+          "value": 12.24,
+          "items": [
+            {
+              "item_id": 48641234,
+              "item_name": "sport-shoes",
+              "item_variant": "blue",
+              "item_vendor": "sport-products",
+              "price": 12.24,
+              "quantity": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "add_to_cart": {
+    "event": "add_to_cart",
+    "event_type": "event_ecomm_recommended",
+    "ecommerce": {
+      "currency": "usd",
+      "value": {
+        "required": true,
+        "type": "number"
+      },
+      "items": [
+        {
+          "item_id": {
+            "required": true,
+            "type": "number"
+          },
+          "item_name": "",
+          "item_variant": "",
+          "item_vendor": "",
+          "price": {
+            "required": true,
+            "type": "number"
+          },
+          "quantity": {
+            "required": true,
+            "type": "number"
+          }
+        }
+      ]
+    },
+    "docs": {
+      "description": "An event triggered whenever a item is added to cart.",
+      "structureExpected": {
+        "event": "add_to_cart",
+        "event_type": "event_ecomm_recommended",
+        "ecommerce": {
+          "currency": "usd",
+          "value": 12.24,
+          "items": [
+            {
+              "item_id": 48641234,
+              "item_name": "sport-shoes",
+              "item_variant": "blue",
+              "item_vendor": "sport-products",
+              "price": 12.24,
+              "quantity": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "remove_from_cart": {
+    "event": "remove_from_cart",
+    "event_type": "event_ecomm_recommended",
+    "ecommerce": {
+      "currency": "usd",
+      "value": {
+        "required": true,
+        "type": "number"
+      },
+      "items": [
+        {
+          "item_id": {
+            "required": true,
+            "type": "number"
+          },
+          "item_name": "",
+          "item_variant": "",
+          "item_vendor": "",
+          "price": {
+            "required": true,
+            "type": "number"
+          },
+          "quantity": {
+            "required": true,
+            "type": "number"
+          }
+        }
+      ]
+    },
+    "docs": {
+      "description": "An event triggered whenever a item is removed to cart.",
+      "structureExpected": {
+        "event": "remove_from_cart",
+        "event_type": "event_ecomm_recommended",
+        "ecommerce": {
+          "currency": "usd",
+          "value": 12.24,
+          "items": [
+            {
+              "item_id": 48641234,
+              "item_name": "sport-shoes",
+              "item_variant": "blue",
+              "item_vendor": "sport-products",
+              "price": 12.24,
+              "quantity": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}
