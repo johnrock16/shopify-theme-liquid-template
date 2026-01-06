@@ -5,35 +5,46 @@ const DataLayerManager = function (eventTemplate, googleTagManagerConfig) {
   const GTM_TYPES = { ...types, tags };
 
   const getLocationPathname = () => {
-    const pagePath = window.location.pathname.split("/")[1] || "home";
+    const pagePath = window.location.pathname.split('/')[1] || 'home';
     const pageCode = PAGE_CODES[pagePath] || PAGE_CODES.home;
     const resolver = LOCATION_PATHS[pageCode];
-    return typeof resolver === "function" ? resolver() : pagePath;
+    return typeof resolver === 'function' ? resolver() : pagePath;
   };
 
   function isValidValue(value) {
     if (value === null || value === undefined) return false;
-    if (typeof value === "string" && value.trim() === "") return false;
+    if (typeof value === 'string' && value.trim() === '') return false;
     return true;
   }
 
   function normalizeString(str) {
-    if (!str || typeof str !== "string") return "";
+    if (!str || typeof str !== 'string') return '';
 
-    const stringCleaned = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
+    const stringCleaned = str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim()
+      .toLowerCase();
     if (/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(stringCleaned)) {
       return stringCleaned;
     }
-    return stringCleaned.replace(/\s+/g, "-").replace(/[_/]/g, "-").replace(/[^a-z0-9-:]/g, "").replace(/^-+|-+$/g, "").replace(/-+/g, "-");
+    return stringCleaned
+      .replace(/\s+/g, '-')
+      .replace(/[_/]/g, '-')
+      .replace(/[^a-z0-9-:]/g, '')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-+/g, '-');
   }
 
   function deepMergeAndClean(event, template, params = {}) {
     if (Array.isArray(template)) {
       const arrParams = Array.isArray(params) ? params : [];
-      return arrParams.map((paramItem, index) => {
-        const templateItem = template[index] || template[0] || {};
-        return deepMergeAndClean(event, templateItem, paramItem);
-      }).filter((item) => item && Object.keys(item).length > 0);
+      return arrParams
+        .map((paramItem, index) => {
+          const templateItem = template[index] || template[0] || {};
+          return deepMergeAndClean(event, templateItem, paramItem);
+        })
+        .filter((item) => item && Object.keys(item).length > 0);
     }
 
     const result = {};
@@ -42,12 +53,20 @@ const DataLayerManager = function (eventTemplate, googleTagManagerConfig) {
       const templateValue = template[key];
       let paramValue = params?.[key];
 
-      const isSchemaLeaf = templateValue && typeof templateValue === "object" && !Array.isArray(templateValue) && ("type" in templateValue || "required" in templateValue || "default" in templateValue);
+      const isSchemaLeaf =
+        templateValue &&
+        typeof templateValue === 'object' &&
+        !Array.isArray(templateValue) &&
+        ('type' in templateValue || 'required' in templateValue || 'default' in templateValue);
 
       if (isSchemaLeaf && templateValue.required) {
-        if (paramValue === undefined || paramValue === null || (typeof paramValue === "string" && paramValue.trim() === "")) {
+        if (
+          paramValue === undefined ||
+          paramValue === null ||
+          (typeof paramValue === 'string' && paramValue.trim() === '')
+        ) {
           if (templateValue?.default) {
-            paramValue = templateValue?.default
+            paramValue = templateValue?.default;
           } else {
             throw new Error(`GTM: Missing required field "${key}" for event "${event}"`);
           }
@@ -56,11 +75,15 @@ const DataLayerManager = function (eventTemplate, googleTagManagerConfig) {
 
       if (paramValue !== undefined && isSchemaLeaf && templateValue.type) {
         if (typeof paramValue !== templateValue.type) {
-          throw new Error(`GTM: Type mismatch for "${key}" in event "${event}". Expected "${templateValue.type}", got "${typeof paramValue}"`);
+          throw new Error(
+            `GTM: Type mismatch for "${key}" in event "${event}". Expected "${
+              templateValue.type
+            }", got "${typeof paramValue}"`
+          );
         }
       }
 
-      if ( templateValue && typeof templateValue === "object" && !Array.isArray(templateValue) && !isSchemaLeaf) {
+      if (templateValue && typeof templateValue === 'object' && !Array.isArray(templateValue) && !isSchemaLeaf) {
         const nested = deepMergeAndClean(event, templateValue, paramValue);
         if (nested && Object.keys(nested).length > 0) {
           result[key] = nested;
@@ -78,16 +101,16 @@ const DataLayerManager = function (eventTemplate, googleTagManagerConfig) {
 
       if (isSchemaLeaf) {
         if (paramValue !== undefined) {
-          result[key] = typeof paramValue === "string" ? normalizeString(paramValue) : paramValue;
+          result[key] = typeof paramValue === 'string' ? normalizeString(paramValue) : paramValue;
         } else if (templateValue.default !== undefined) {
           result[key] = templateValue.default;
           continue;
         }
       } else {
         if (isValidValue(paramValue)) {
-          result[key] = typeof paramValue === "string" ? normalizeString(paramValue) : paramValue;
+          result[key] = typeof paramValue === 'string' ? normalizeString(paramValue) : paramValue;
         } else if (templateValue !== undefined) {
-          if (typeof templateValue !== "object") {
+          if (typeof templateValue !== 'object') {
             result[key] = templateValue;
           }
         }
@@ -108,25 +131,29 @@ const DataLayerManager = function (eventTemplate, googleTagManagerConfig) {
 
       cleanedEvent.custom_section ||= getLocationPathname();
       window.dataLayer.push(cleanedEvent);
+      console.log(window.dataLayer[window.dataLayer.length - 1]);
 
-      return {ok: true , event: cleanedEvent};
+      return { ok: true, event: cleanedEvent };
     } catch (error) {
       console.error(error);
-      return {error: error};
+      return { error: error };
     }
   };
 
   const trackElementVisibility = (element, threshold = 0.5) => {
     if (!element) return;
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.dispatchEvent(new CustomEvent("onScreen:once"));
-          obs.unobserve(entry.target);
-        }
-      });
-    },{threshold});
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.dispatchEvent(new CustomEvent('onScreen:once'));
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold }
+    );
 
     observer.observe(element);
   };

@@ -1,3 +1,8 @@
+{% comment %}
+  GTM: enabled
+  snippet: gtm-product
+{% endcomment %}
+
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -35,6 +40,8 @@
     }
   }
 {%- endstyle -%}
+
+{% render 'gtm-product', event: 'view_items', products: collection.products, title: collection.title %}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
@@ -233,7 +240,7 @@
           "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
         }
       ]
-    },    
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",

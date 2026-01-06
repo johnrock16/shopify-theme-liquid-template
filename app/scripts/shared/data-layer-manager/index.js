@@ -15,5 +15,3 @@ const googleTagManager = new DataLayerManager(
 
 window.dataLayer = window.dataLayer || [];
 window.dataLayerManager = googleTagManager;
-
-import('./events/product.js');

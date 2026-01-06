@@ -1,0 +1,65 @@
+{% assign product = product %}
+{% assign products = products %}
+{% assign variant = variant %}
+{% assign event = event %}
+{% assign recommendation = recommendation %}
+{% assign title = title %}
+
+{% case event %}
+  {% when 'pdp:view_item' %}
+    <script async>
+      if (!window.product) {
+        window.product = {{ product | json }}
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        window.dataLayerManager.pushToDataLayer('view_item', {
+          "ecommerce": {
+            "currency": {{ shop.currency | json }},
+            "value": {{ product.price | money_without_currency | replace: ',', '.' }},
+            "items": [
+              {
+                "item_id": {{ product.id }},
+                "item_name": {{ product.title | json }},
+                "item_variant": {{ variant.title | json }},
+                "item_vendor": {{  product.vendor | json }},
+                "price": {{ product.price | money_without_currency | replace: ',', '.' }}
+              }
+            ]
+          }
+        });
+      });
+    </script>
+
+  {%- when 'view_items' -%}
+    {% assign total_value = 0 %}
+
+    {% capture items %}
+      [
+        {% for product in products %}
+          {% assign variant = product.selected_or_first_available_variant %}
+          {% assign total_value = total_value | plus: variant.price %}
+          {
+            "item_id": {{ product.id | json }},
+            "item_name": {{ product.title | json }},
+            "item_variant": {{ variant.title | json }},
+            "item_vendor": {{ product.vendor | json }},
+            "price": {{ variant.price | divided_by: 100.0 }}
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    {% endcapture %}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayerManager.pushToDataLayer('view_items', {
+          "custom_title": {{ title | default: '' | json }},
+          "ecommerce": {
+            "currency": {{ shop.currency | json }},
+            "value": {{ total_value | divided_by: 100.0 }},
+            "items": {{ items | strip_newlines }}
+          }
+        });
+      });
+    </script>
+{% endcase %}

@@ -1,0 +1,35 @@
+{% assign product = product %}
+{% assign products = products %}
+{% assign variant = variant %}
+{% assign event = event %}
+{% assign recommendation = recommendation %}
+{% assign title = title %}
+
+{% case event %}
+  {% when 'add_to_cart' %}
+    <script async>
+      document.addEventListener('DOMContentLoaded', () => {
+        const buttonElement = document.querySelector('button.product-form__submit');
+
+        buttonElement.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.dataLayerManager.pushToDataLayer('add_to_cart', {
+            "ecommerce": {
+              "currency": {{ shop.currency | json }},
+              "value": {{ product.price | money_without_currency | replace: ',', '.' }},
+              "items": [
+                {
+                  "item_id": {{ product.id }},
+                  "item_name": {{ product.title | json }},
+                  "item_variant": {{ variant.title | json }},
+                  "item_vendor": {{  product.vendor | json }},
+                  "price": {{ product.price | money_without_currency | replace: ',', '.' }},
+                  "quantity": 1
+                }
+              ]
+            }
+          });
+        });
+      });
+    </script>
+{% endcase %}
