@@ -131,6 +131,7 @@ const DataLayerManager = function (eventTemplate, googleTagManagerConfig) {
 
       cleanedEvent.custom_section ||= getLocationPathname();
       window.dataLayer.push(cleanedEvent);
+      console.log(window.dataLayer[window.dataLayer.length - 1]);
 
       return { ok: true, event: cleanedEvent };
     } catch (error) {

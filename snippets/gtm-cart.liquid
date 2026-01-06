@@ -13,8 +13,6 @@
 
         buttonElement.addEventListener('click', (e) => {
           e.preventDefault();
-          const product = {{ product | json }};
-          const variant = {{ variant | json }};
           window.dataLayerManager.pushToDataLayer('add_to_cart', {
             "ecommerce": {
               "currency": {{ shop.currency | json }},
