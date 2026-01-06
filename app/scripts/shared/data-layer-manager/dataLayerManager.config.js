@@ -32,7 +32,7 @@ export default {
     pages: 'pages',
   },
   pathnames: {
-    pdp: () => `pdp:${window.product.handle}`,
+    pdp: () => `pdp:${window.location.pathname.split('/')[2].replace(/\//g, '-')}`,
     plp: () => `plp:${window.location.pathname.substring(1).replace(/\//g, '-')}`,
     search: () => `search`,
     home: () => `home`,

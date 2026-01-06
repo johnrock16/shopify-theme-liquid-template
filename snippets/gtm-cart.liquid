@@ -1,13 +1,15 @@
-{% assign product = product %}
-{% assign products = products %}
-{% assign variant = variant %}
-{% assign event = event %}
-{% assign recommendation = recommendation %}
-{% assign title = title %}
+{%- comment -%}
+  Expected params:
+  - product
+  - products
+  - variant
+  - event
+  - title
+{%- endcomment -%}
 
 {% case event %}
   {% when 'add_to_cart' %}
-    <script async>
+    <script>
       document.addEventListener('DOMContentLoaded', () => {
         const buttonElement = document.querySelector('button.product-form__submit');
 
@@ -16,14 +18,14 @@
           window.dataLayerManager.pushToDataLayer('add_to_cart', {
             "ecommerce": {
               "currency": {{ shop.currency | json }},
-              "value": {{ product.price | money_without_currency | replace: ',', '.' }},
+              "value": {{ product.price | divided_by: 100.0 }},
               "items": [
                 {
                   "item_id": {{ product.id }},
                   "item_name": {{ product.title | json }},
                   "item_variant": {{ variant.title | json }},
                   "item_vendor": {{  product.vendor | json }},
-                  "price": {{ product.price | money_without_currency | replace: ',', '.' }},
+                  "price": {{ product.price | divided_by: 100.0 }},
                   "quantity": 1
                 }
               ]
