@@ -1,3 +1,13 @@
+{% comment %}
+  GTM: enabled
+  snippet: gtm-product
+{% endcomment %}
+{% render 'gtm-product',
+  event: 'pdp:view_item',
+  product: product,
+  variant: product.selected_or_first_available_variant
+%}
+
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"

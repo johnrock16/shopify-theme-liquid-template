@@ -1,0 +1,56 @@
+{% assign product = product %}
+{% assign products = products %}
+{% assign variant = variant %}
+{% assign event = event %}
+{% assign recommendation = recommendation %}
+{% assign title = title %}
+
+{% case event %}
+  {% when 'pdp:view_item' %}
+    <script async>
+      if (!window.product) {
+        window.product = {{ product | json }}
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        window.dataLayerManager.pushToDataLayer('view_item', {
+          "ecommerce": {
+            "currency": {{ shop.currency | json }},
+            "value": {{ product.price | money_without_currency | replace: ',', '.' }},
+            "items": [
+              {
+                "item_id": {{ product.id }},
+                "item_name": {{ product.title | json }},
+                "item_variant": {{ variant.title | json }},
+                "item_vendor": {{  product.vendor | json }},
+                "price": {{ product.price | money_without_currency | replace: ',', '.' }}
+              }
+            ]
+          }
+        });
+      });
+    </script>
+
+  {% when 'view_items' %}
+    <script async>
+      document.addEventListener('DOMContentLoaded', () => {
+        const products = {{ products | json }};
+        const productsValue = products.map((product) => product.price).reduce((a, b) => (a + b), 0);
+        const title = '{{title}}';
+
+        window.dataLayerManager.pushToDataLayer('view_items', {
+          "custom_title": title,
+          "ecommerce": {
+            "currency" : {{ shop.currency | json }},
+            "value": productsValue,
+            "items": products.map((product) => ({
+              "item_id": product.id,
+              "item_name": product.title,
+              "item_variant": product?.variants?.[0].title || '',
+              "item_vendor": product.vendor,
+              "price": product.price
+            }))
+          }
+        });
+      });
+    </script>
+{% endcase %}

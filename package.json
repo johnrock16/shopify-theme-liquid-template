@@ -1,6 +1,6 @@
 {
   "name": "shopify-liquid-template",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --",
     "deploy": "run-s \"vite:build\" \"shopify:push -- {@}\" --",
